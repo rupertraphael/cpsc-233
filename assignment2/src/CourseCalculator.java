@@ -19,11 +19,11 @@ public class CourseCalculator {
 	// modification for A+ grades, which is 4.3)
 	// These values can be changed to test whether the grade calculation is accurate
 	
-	public static double iAssignmentGrades = 2.0;
-	public static double iQuizGrades = 1.0;
-	public static double iCodingChallengeGrades = 1.0;
-	public static double tQuizGrades = 1.0;
-	public static double tProjectGrades = 1.0;
+	public static double[] iAssignmentGrades = new double[10];
+	public static double[] iQuizGrades = new double[11];
+	public static double[] iCodingChallengeGrades = new double[6];
+	public static double[] tQuizGrades = new double[10];
+	public static double tProjectGrade = 1.0;
 	
 	public static void main(String[] args) {
 		
@@ -66,11 +66,24 @@ public class CourseCalculator {
 	static double findAverageGrade(double [] rawGrades)
 	{
 		double mean = 0.0;
+		double total = 0.0;
+		int numberOfGrades = rawGrades.length;
 		
 		// YOUR CODE MUST GO HERE
 		
+		for(double grade : rawGrades) {
+			
+			total += grade;
+			
+		}
+		
+
+		mean = total/numberOfGrades;
+		
 		// include a check: if your mean is greater than 4.3 or less than 0.0
 		// have the method return 0
+		if(mean > 4.3 || mean < 0.0)
+			return 0;
 				
 		return mean;
 	}
