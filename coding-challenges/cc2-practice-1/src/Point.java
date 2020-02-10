@@ -28,9 +28,7 @@ public class Point {
 		this.setXCoord(this.getXCoord() + i);
 	}
 
-	public double distance(Point p2) {
-		System.out.println();
-		
+	public double distance(Point p2) {		
 		double aSquared = Math.pow((p2.getXCoord() - this.getXCoord()), 2);
 		double bSquared = Math.pow((p2.getYCoord() - this.getYCoord()), 2);
 		
