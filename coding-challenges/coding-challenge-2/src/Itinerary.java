@@ -30,31 +30,33 @@ public class Itinerary {
 	
 	public void addFlight(Flight flight) {
 		
-		if(this.flightList.isEmpty()) {
-			this.flightList.add(flight);
+		int indexToAdd = 0;
+		
+		for(int index = 0; index < this.flightList.size(); index++) {
 			
-			return;
-		}
-		
-		
-		
-		for(Flight existingFlight : this.flightList) {
-			if(
-					(flight.getDeparture().after(existingFlight.getDeparture()) && flight.getDeparture().before(existingFlight.getArrival())) ||
-					(existingFlight.getDeparture().after(flight.getDeparture()) && existingFlight.getDeparture().before(flight.getArrival()))
-			) {
-				return;
+			if(flight.getArrival().before(this.flightList.get(index).getDeparture())) {
+				indexToAdd = index;
+				break;
+			} else if(index == this.flightList.size() - 1) {
+				indexToAdd = this.flightList.size();
 			}
 		}
-		
-		int index = 0;
-		int length = this.flightList.size();
-		
-		this.flightList.add(flight);
+
+		this.flightList.add(indexToAdd, new Flight(flight));
 	}
 
 	public long getTotalLayover() {
-		return 0;
+		int TotalLayover = 0;
+		
+		ArrayList<Flight> flights = this.flightList;
+		
+		for(int index = 0; index < flights.size()-1; index++) {
+			long layover = ((flights.get(index + 1).getDeparture().getTime() - flights.get(index).getArrival().getTime()) / 1000) / 60;
+			
+			TotalLayover += layover;
+		}
+		
+		return TotalLayover;
 	}
 	
 	
