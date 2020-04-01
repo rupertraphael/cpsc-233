@@ -99,39 +99,33 @@ class FileExercises {
             String encryptedLine = "";
 
             for(char character : datum.toCharArray()) {
+                if(!Character.isLetter(character)) {
+                    encryptedLine += Character.toString(character);
+                    continue;
+                }
+
                 int newInt = ((int) character) + shift;
+                char newChar = (char) newInt;
 
-                char newChar = character;
+                if(!Character.isLetter(newChar)) {
+                    int offset = 0;
+                    char end = 'a';
 
-                if(
-                    !(newInt >= 'a' && newInt <= 'z') &&
-                    !(newInt >= 'A' && newInt <= 'Z')
-                ) {
-                    if(newInt < 'A') {
-                        int offset = 'A' - newInt;
-    
-                        newInt = 'Z' - offset;
-                    }else if(newInt > 'Z') {
-                        int offset = newInt - 'Z';
-    
-                        newInt = 'A' + offset - 1;
-                    }else if(newInt < 'a') {
-                        int offset = 'a' - newInt;
-    
-                        newInt = 'z' - offset;
-                    }else if(newInt > 'z') {
-                        int offset = newInt - 'z';
-    
-                        newInt = 'a' + offset;
+                    if(newChar > 'z') {
+                        offset = (int)(newChar - 'z');
+                    }else if(newChar < 'A') {
+                        end = 'Z';
+                        offset = (int)('A' - newChar);
+                    }else if(newChar > 'Z') {
+                        end = 'A';
+                        offset = (int)(newChar - 'Z');
+                    }else if(newChar < 'a') {
+                        end = 'z';
+                        offset = (int)('a' - newChar);
                     }
-                }
-                
-                if(
-                    (character >= 'a' && character <= 'z') ||
-                    (character >= 'A' && character <= 'Z')
-                ) {
-                    newChar = (char) newInt;
-                }
+
+                    newChar = (char) (end + offset - 1);
+                } 
 
                 encryptedLine += Character.toString(newChar);
             }
